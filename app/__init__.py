@@ -1,39 +1,52 @@
+from app.main.model import user_team
 from flask_restplus import Api
 from flask import Blueprint
 
 from .main.controller.user_controller import api as user_ns
 from .main.controller.auth_controller import api as auth_ns
-from .main.controller.assessment_controller import api as assessment_ns
-from .main.controller.activity_controller import api as activity_ns
-from .main.controller.company_controller import api as company_ns
-from .main.controller.user_company_controller import api as user_company_ns
-from .main.controller.deal_controller import api as deal_ns
-from .main.controller.deal_investor_controller import api as deal_investor_ns
-from .main.controller.event_controller import api as event_ns
-from .main.controller.event_participant_controller import api as event_participant_ns
-from .main.controller.note_controller import api as note_ns
-from .main.controller.vote_controller import api as vote_ns
-from .main.controller.highlight_controller import api as highlight_ns
+from .main.controller.user_team_controller import api as user_team_ns
+from .main.controller.property_controller import api as property_ns
+from .main.controller.property_model_controller import api as property_model_ns
+from .main.controller.portfolio_controller import api as portfolio_ns
+from .main.controller.property_portfolio_controller import api as property_portfolio_ns
+from .main.controller.team_portfolio_controller import api as team_portfolio_ns
+from .main.controller.rent_controller import api as rent_ns
+from .main.controller.team_controller import api as team_ns
+from .main.controller.document_controller import api as document_ns
+from .main.controller.property_history_controller import api as property_history_ns
+from .main.controller.confirm_controller import api as confirm_ns
+from .main.controller.changepassword_controller import api as changepassword_ns
 
 blueprint = Blueprint('api', __name__)
-
+#STUFF LUKE ADDED
+authorizations = {
+    'apiKey': {
+        'type' : 'apiKey',
+        'in': 'header',
+        'name': 'Authorization'
+    }
+}
+##HERE
 api = Api(blueprint,
-          title='Room 40 API',
+          title='Lasso Real Estate',
           version='1.0',
-          description='The development environment for endpoints for the Room 40 superapp. One app to rule them All.',
+          description='The development environment for endpoints for the Lasso Real Estate App.',
           contact='luke@fromstandard.com',
+          security='apiKey',
+          authorizations=authorizations
           )
 
 api.add_namespace(user_ns, path="/user")
-api.add_namespace(user_company_ns, path="/user_company")
+api.add_namespace(user_team_ns, path="/user_team")
 api.add_namespace(auth_ns)
-api.add_namespace(assessment_ns, path="/assessment")
-api.add_namespace(activity_ns, path="/activity")
-api.add_namespace(company_ns, path="/company")
-api.add_namespace(deal_ns, path="/deal")
-api.add_namespace(event_ns, path="/event")
-api.add_namespace(note_ns, path="/note")
-api.add_namespace(deal_investor_ns, path="/deal_investor")
-api.add_namespace(highlight_ns, path="/highlight")
-api.add_namespace(event_participant_ns, path="/event_participant")
-api.add_namespace(vote_ns, path="/vote")
+api.add_namespace(property_ns, path="/property")
+api.add_namespace(property_model_ns, path="/property_model")
+api.add_namespace(portfolio_ns, path="/portfolio")
+api.add_namespace(property_portfolio_ns, path="/property_portfolio")
+api.add_namespace(rent_ns, path="/rent")
+api.add_namespace(team_ns, path="/team")
+api.add_namespace(team_portfolio_ns, path="/team_portfolio")
+api.add_namespace(document_ns, path="/document")
+api.add_namespace(property_history_ns, path="/property_history")
+api.add_namespace(confirm_ns, path="/confirm")
+api.add_namespace(changepassword_ns, path="/changepassword")
